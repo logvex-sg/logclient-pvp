@@ -1,0 +1,31 @@
+package com.logvex.logclient.mixin;
+
+import com.logvex.logclient.LogClient;
+import com.logvex.logclient.module.combat.CriticalsModule;
+import com.logvex.logclient.module.combat.WTapModule;
+import net.minecraft.client.network.ClientPlayerInteractionManager;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(ClientPlayerInteractionManager.class)
+public class ClientPlayerInteractionManagerMixin {
+    @Inject(method = "attackEntity", at = @At("HEAD"))
+    private void logclient$wTap(PlayerEntity player, Entity target, CallbackInfo ci) {
+        LogClient client = LogClient.getInstance();
+        if (client == null) {
+            return;
+        }
+        WTapModule wTap = client.getModuleManager().getModule(WTapModule.class);
+        if (wTap != null && wTap.isEnabled()) {
+            wTap.onAttack();
+        }
+        CriticalsModule criticals = client.getModuleManager().getModule(CriticalsModule.class);
+        if (criticals != null && criticals.isEnabled()) {
+            criticals.performCrit();
+        }
+    }
+}

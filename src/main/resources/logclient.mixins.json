@@ -1,0 +1,32 @@
+{
+  "required": true,
+  "package": "com.logvex.logclient.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "CameraMixin",
+    "ChatScreenMixin",
+    "ClientPlayerEntityMixin",
+    "ClientPlayerInteractionManagerMixin",
+    "ClientPlayNetworkHandlerMixin",
+    "EntityRendererMixin",
+    "EntityRenderManagerMixin",
+    "GameRendererMixin",
+    "InGameHudMixin",
+    "InGameOverlayRendererMixin",
+    "KeyboardInputMixin",
+    "KeyboardMixin",
+    "LavaFogMixin",
+    "MinecraftClientMixin",
+    "MouseMixin",
+    "ParticleManagerMixin",
+    "PlayerEntityMixin",
+    "PowderSnowFogMixin",
+    "StatusEffectFogMixin$Blindness",
+    "StatusEffectFogMixin$Darkness",
+    "WaterFogMixin",
+    "WorldRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

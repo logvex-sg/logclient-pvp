@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "logclient",
+  "version": "${version}",
+  "name": "LogClient",
+  "description": "A fast, feature-rich client for anarchy PvP: HUD suite, legit combat utilities, visual tweaks, deep performance optimizations, ClickGUI and configs.",
+  "authors": ["logvex-sg"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/logclient/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.logvex.logclient.LogClient"]
+  },
+  "mixins": ["logclient.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
