@@ -29,19 +29,4 @@ public class NoFogModule extends Module {
     public boolean isBlindness() {
         return blindness.get();
     }
-
-    /** Maps a concrete {@code FogModifier} class onto the toggles the user controls. */
-    public boolean covers(Class<?> modifier) {
-        if (modifier == null) {
-            return false;
-        }
-        String name = modifier.getSimpleName();
-        return switch (name) {
-            case "WaterFogModifier" -> waterFog.get();
-            case "LavaFogModifier" -> lavaFog.get();
-            case "PowderSnowFogModifier" -> powderFog.get();
-            case "BlindnessEffectFogModifier", "DarknessEffectFogModifier" -> blindness.get();
-            default -> false;
-        };
-    }
 }

@@ -4,6 +4,7 @@ import com.logvex.logclient.LogClient;
 import com.logvex.logclient.module.optimization.FpsBoostModule;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.WorldRenderer;
+import net.minecraft.client.render.state.WorldRenderState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -28,6 +29,20 @@ public class WorldRendererMixin {
         FpsBoostModule boost = client.getModuleManager().getModule(FpsBoostModule.class);
         if (boost != null && boost.isEnabled() && boost.isNoClouds()) {
             ci.cancel();
+        }
+    }
+
+    /** The breaking overlay is drawn from this list, so emptying it skips the crack texture. */
+    @Inject(method = "fillBlockBreakingProgressRenderState", at = @At("RETURN"))
+    private void logclient$noBlockBreak(net.minecraft.client.render.Camera camera, WorldRenderState state,
+                                        CallbackInfo ci) {
+        LogClient client = LogClient.getInstance();
+        if (client == null) {
+            return;
+        }
+        FpsBoostModule boost = client.getModuleManager().getModule(FpsBoostModule.class);
+        if (boost != null && boost.isEnabled() && boost.isNoBlockBreak()) {
+            state.breakingBlockRenderStates.clear();
         }
     }
 }
